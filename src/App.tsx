@@ -41,7 +41,7 @@ function App() {
         <Paper variant="outlined">
           <Box padding={3}>
             <Box marginBottom={3}>
-              <img src={jake} width="100%" />
+              <img src={jake} width="100%" alt="jake the burrito dog" />
             </Box>
             <Button variant="contained" fullWidth color="primary">
               MAKE ACCOUNT

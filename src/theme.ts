@@ -4,12 +4,6 @@ const COLORS = {
   YELLOW: "#ffd204",
 };
 
-const defaultTheme = createMuiTheme({
-  palette: {
-    type: "dark",
-  },
-});
-
 export const theme = createMuiTheme({
   palette: {
     type: "dark",
