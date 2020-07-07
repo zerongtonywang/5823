@@ -7,12 +7,11 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import bgURL from "./bg.png";
 import jake from "./jake.jpg";
 import { theme, COLORS } from "./theme";
-
-const BASE_URL = "https://us-central1-burrito-city.cloudfunctions.net";
+import { Row } from "./Row";
 
 const useStyles = makeStyles({
   root: {
@@ -24,8 +23,14 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
+  const [account, setAccount] = useState<Account>();
+
   function handleClick() {
-    fetch(BASE_URL + "/make").then(console.log);
+    fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld").then((res) => {
+      if (res.ok) {
+        res.json().then(setAccount);
+      }
+    });
   }
 
   return (
@@ -56,13 +61,23 @@ function App() {
               <Box marginBottom={3}>
                 <img src={jake} width="100%" alt="jake the burrito dog" />
               </Box>
+              {account && (
+                <Box marginBottom={3}>
+                  <Row
+                    label="NAME"
+                    value={`${account.firstName} ${account.lastName}`}
+                  />
+                  <Row label="EMAIL" value={account.email} />
+                  <Row label="PASSWORD" value={account.password} />
+                </Box>
+              )}
               <Button
                 variant="contained"
                 fullWidth
                 color="primary"
                 onClick={handleClick}
               >
-                MAKE ACCOUNT
+                MAKE {account ? "ANOTHER" : "ACCOUNT"}
               </Button>
             </Box>
           </Paper>
