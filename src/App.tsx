@@ -12,6 +12,8 @@ import bgURL from "./bg.png";
 import jake from "./jake.jpg";
 import { theme, COLORS } from "./theme";
 
+const BASE_URL = "https://us-central1-burrito-city.cloudfunctions.net";
+
 const useStyles = makeStyles({
   root: {
     backgroundColor: COLORS.BLACK,
@@ -22,7 +24,9 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
-  function handleClick() {}
+  function handleClick() {
+    fetch(BASE_URL + "/make").then(console.log);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -33,7 +37,7 @@ function App() {
         display="flex"
         justifyContent="center"
       >
-        <Box padding={3}>
+        <Box padding={3} maxWidth={600} width="100%">
           <Box
             display="flex"
             justifyContent="space-between"
