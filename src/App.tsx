@@ -25,15 +25,21 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
+  const [fetching, setFetching] = useState(false);
   const [account, setAccount] = useState<Account>();
   const [copiedEmail, setCopiedEmail] = useState("");
 
   function handleMakeClick() {
-    fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld").then((res) => {
-      if (res.ok) {
-        res.json().then(setAccount);
-      }
-    });
+    setFetching(true);
+    fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld")
+      .then((res) => {
+        if (res.ok) {
+          res.json().then(setAccount);
+        }
+      })
+      .finally(() => {
+        setFetching(false);
+      });
   }
 
   function handleCopyClick() {
@@ -95,7 +101,9 @@ function App() {
                 color="primary"
                 onClick={handleMakeClick}
               >
-                MAKE {account ? "ANOTHER" : "ACCOUNT"}
+                {fetching
+                  ? "WORKING..."
+                  : `MAKE ${account ? "ANOTHER" : "ACCOUNT"}`}
               </Button>
             </Box>
           </Paper>
