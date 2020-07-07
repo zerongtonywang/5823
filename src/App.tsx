@@ -4,10 +4,13 @@ import {
   ThemeProvider,
   Typography,
   CssBaseline,
+  Paper,
+  Button,
 } from "@material-ui/core";
 import React from "react";
 import bgURL from "./bg.png";
 import { theme } from "./theme";
+import jake from "./jake.jpg";
 
 const useStyles = makeStyles({
   root: {
@@ -27,12 +30,24 @@ function App() {
           justifyContent="space-between"
           alignItems="center"
           marginRight={1}
+          marginBottom={3}
         >
           <Typography color="primary" variant="h5">
             BURRITO CITY
           </Typography>
-          <Typography color="secondary">V2</Typography>
+          <Typography>V2</Typography>
         </Box>
+
+        <Paper variant="outlined">
+          <Box padding={3}>
+            <Box marginBottom={3}>
+              <img src={jake} width="100%" />
+            </Box>
+            <Button variant="contained" fullWidth color="primary">
+              MAKE ACCOUNT
+            </Button>
+          </Box>
+        </Paper>
       </Box>
     </ThemeProvider>
   );
