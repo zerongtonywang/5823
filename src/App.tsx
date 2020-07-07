@@ -6,12 +6,14 @@ import {
   Paper,
   ThemeProvider,
   Typography,
+  Collapse,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { AccountInfo } from "./AccountInfo";
 import bgURL from "./bg.png";
 import jake from "./jake.jpg";
 import { COLORS, theme } from "./theme";
+import copy from "copy-to-clipboard";
 
 const useStyles = makeStyles({
   root: {
@@ -24,13 +26,24 @@ function App() {
   const classes = useStyles();
 
   const [account, setAccount] = useState<Account>();
+  const [copiedEmail, setCopiedEmail] = useState("");
 
-  function handleClick() {
+  function handleMakeClick() {
     fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld").then((res) => {
       if (res.ok) {
         res.json().then(setAccount);
       }
     });
+  }
+
+  function handleCopyClick() {
+    if (account) {
+      copy(account.email);
+      setCopiedEmail(account.email);
+      setTimeout(() => {
+        setCopiedEmail("");
+      }, 1000);
+    }
   }
 
   return (
@@ -63,11 +76,24 @@ function App() {
 
               <AccountInfo account={account} />
 
+              <Collapse in={!!account}>
+                <Box marginBottom={2}>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    color="primary"
+                    onClick={handleCopyClick}
+                  >
+                    {copiedEmail ? `COPIED!` : "COPY EMAIL"}
+                  </Button>
+                </Box>
+              </Collapse>
+
               <Button
-                variant="contained"
+                variant={account ? "outlined" : "contained"}
                 fullWidth
                 color="primary"
-                onClick={handleClick}
+                onClick={handleMakeClick}
               >
                 MAKE {account ? "ANOTHER" : "ACCOUNT"}
               </Button>
