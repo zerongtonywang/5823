@@ -8,10 +8,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
+import { AccountInfo } from "./AccountInfo";
 import bgURL from "./bg.png";
 import jake from "./jake.jpg";
-import { theme, COLORS } from "./theme";
-import { Row } from "./Row";
+import { COLORS, theme } from "./theme";
 
 const useStyles = makeStyles({
   root: {
@@ -55,22 +55,14 @@ function App() {
             </Typography>
             <Typography>V2</Typography>
           </Box>
-
           <Paper variant="outlined">
             <Box padding={3}>
-              <Box marginBottom={3}>
+              <Box marginBottom={2.5}>
                 <img src={jake} width="100%" alt="jake the burrito dog" />
               </Box>
-              {account && (
-                <Box marginBottom={3}>
-                  <Row
-                    label="NAME"
-                    value={`${account.firstName} ${account.lastName}`}
-                  />
-                  <Row label="EMAIL" value={account.email} />
-                  <Row label="PASSWORD" value={account.password} />
-                </Box>
-              )}
+
+              <AccountInfo account={account} />
+
               <Button
                 variant="contained"
                 fullWidth
