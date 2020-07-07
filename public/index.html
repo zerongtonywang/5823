@@ -26,7 +26,10 @@
     -->
     <title>React App</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -41,5 +44,28 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyChHnydy1uwWPeCg4Sk_XfPl7zjiocfWUs",
+        authDomain: "burrito-city-c3172.firebaseapp.com",
+        databaseURL: "https://burrito-city-c3172.firebaseio.com",
+        projectId: "burrito-city-c3172",
+        storageBucket: "burrito-city-c3172.appspot.com",
+        messagingSenderId: "811781287237",
+        appId: "1:811781287237:web:9297fe20f52828a477e22c",
+        measurementId: "G-4Z3G9EW5ME",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
   </body>
 </html>
