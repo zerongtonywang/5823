@@ -1,17 +1,16 @@
 import {
   Box,
+  Button,
+  CssBaseline,
   makeStyles,
+  Paper,
   ThemeProvider,
   Typography,
-  CssBaseline,
-  Paper,
-  Button,
-  Container,
 } from "@material-ui/core";
 import React from "react";
 import bgURL from "./bg.png";
-import { theme } from "./theme";
 import jake from "./jake.jpg";
+import { theme } from "./theme";
 
 const useStyles = makeStyles({
   root: {
