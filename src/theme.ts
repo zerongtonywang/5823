@@ -1,6 +1,7 @@
 import { createMuiTheme } from "@material-ui/core";
 
-const COLORS = {
+export const COLORS = {
+  BLACK: "#000403",
   YELLOW: "#ffd204",
 };
 
@@ -12,6 +13,9 @@ export const theme = createMuiTheme({
     },
     secondary: {
       main: "#94febf",
+    },
+    background: {
+      paper: COLORS.BLACK,
     },
   },
   typography: {
@@ -25,7 +29,7 @@ export const theme = createMuiTheme({
     },
     MuiPaper: {
       outlined: {
-        backgroundColor: "transparent",
+        // backgroundColor: "transparent",
         borderColor: COLORS.YELLOW,
       },
     },
