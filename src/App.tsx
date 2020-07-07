@@ -22,9 +22,17 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box className={classes.root} padding={3} minHeight="100vh">
-        <Typography color="primary" variant="h4">
-          GYG BURRITO
-        </Typography>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          marginRight={1}
+        >
+          <Typography color="primary" variant="h5">
+            BURRITO CITY
+          </Typography>
+          <Typography color="secondary">V2</Typography>
+        </Box>
       </Box>
     </ThemeProvider>
   );
