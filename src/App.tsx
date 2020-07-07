@@ -10,17 +10,20 @@ import {
 import React from "react";
 import bgURL from "./bg.png";
 import jake from "./jake.jpg";
-import { theme } from "./theme";
+import { theme, COLORS } from "./theme";
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: "#000403",
+    backgroundColor: COLORS.BLACK,
     background: `url(${bgURL}) repeat`,
   },
 });
 
 function App() {
   const classes = useStyles();
+
+  function handleClick() {}
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -49,7 +52,12 @@ function App() {
               <Box marginBottom={3}>
                 <img src={jake} width="100%" alt="jake the burrito dog" />
               </Box>
-              <Button variant="contained" fullWidth color="primary">
+              <Button
+                variant="contained"
+                fullWidth
+                color="primary"
+                onClick={handleClick}
+              >
                 MAKE ACCOUNT
               </Button>
             </Box>
