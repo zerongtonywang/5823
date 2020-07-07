@@ -6,6 +6,7 @@ import {
   CssBaseline,
   Paper,
   Button,
+  Container,
 } from "@material-ui/core";
 import React from "react";
 import bgURL from "./bg.png";
@@ -24,30 +25,37 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box className={classes.root} padding={3} minHeight="100vh">
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          marginRight={1}
-          marginBottom={3}
-        >
-          <Typography color="primary" variant="h5">
-            BURRITO CITY
-          </Typography>
-          <Typography>V2</Typography>
-        </Box>
-
-        <Paper variant="outlined">
-          <Box padding={3}>
-            <Box marginBottom={3}>
-              <img src={jake} width="100%" alt="jake the burrito dog" />
-            </Box>
-            <Button variant="contained" fullWidth color="primary">
-              MAKE ACCOUNT
-            </Button>
+      <Box
+        className={classes.root}
+        minHeight="100vh"
+        display="flex"
+        justifyContent="center"
+      >
+        <Box padding={3}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            marginRight={1}
+            marginBottom={3}
+          >
+            <Typography color="primary" variant="h5">
+              BURRITO CITY
+            </Typography>
+            <Typography>V2</Typography>
           </Box>
-        </Paper>
+
+          <Paper variant="outlined">
+            <Box padding={3}>
+              <Box marginBottom={3}>
+                <img src={jake} width="100%" alt="jake the burrito dog" />
+              </Box>
+              <Button variant="contained" fullWidth color="primary">
+                MAKE ACCOUNT
+              </Button>
+            </Box>
+          </Paper>
+        </Box>
       </Box>
     </ThemeProvider>
   );
