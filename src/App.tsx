@@ -17,14 +17,16 @@ import { Notification } from "./Notification";
 import { COLORS, theme } from "./theme";
 
 const useStyles = makeStyles({
-  root: {
-    backgroundColor: COLORS.BLACK,
-    background: `url(${bgURL}) repeat`,
+  "@global": {
+    body: {
+      backgroundColor: COLORS.BLACK,
+      background: `url(${bgURL}) repeat`,
+    },
   },
 });
 
 function App() {
-  const classes = useStyles();
+  useStyles();
 
   const [fetching, setFetching] = useState(false);
   const [account, setAccount] = useState<Account>();
@@ -58,12 +60,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        className={classes.root}
-        minHeight="100vh"
-        display="flex"
-        justifyContent="center"
-      >
+      <Box display="flex" justifyContent="center">
         <Box padding={3} maxWidth={600} width="100%">
           <Box
             display="flex"
