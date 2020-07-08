@@ -1,29 +1,33 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, Chip, Typography } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Clear";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import React from "react";
-import { ContentBox } from "./ContentBox";
+import useLocalStorage from "react-use-localstorage";
 
 export const Notification: React.FC = () => {
+  const [hideTip, setHideTip] = useLocalStorage("hideTip", "");
+
+  function handleDelete() {
+    setHideTip("true");
+  }
+
+  if (hideTip === "true") {
+    return null;
+  }
+
   return (
     <Box marginTop={3}>
-      <ContentBox>
-        <Box display="flex" alignItems="center">
-          <Box
-            padding={1}
-            alignSelf="stretch"
-            display="flex"
-            alignItems="center"
-            bgcolor="#1d1d1d"
-          >
-            <InfoIcon color="disabled" />
-          </Box>
-          <Box paddingLeft={2} paddingRight={3} paddingY={1}>
-            <Typography variant="caption">
-              Tip: You can "Add to Home Screen" for easy access.
-            </Typography>
-          </Box>
-        </Box>
-      </ContentBox>
+      <Chip
+        variant="outlined"
+        icon={<InfoIcon />}
+        deleteIcon={<DeleteIcon />}
+        label={
+          <Typography variant="caption">
+            Tip: You can "Add to Home Screen" for easy access.
+          </Typography>
+        }
+        onDelete={handleDelete}
+      />
     </Box>
   );
 };
