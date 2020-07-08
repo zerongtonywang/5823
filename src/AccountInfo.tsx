@@ -34,7 +34,7 @@ interface AccountInfoProps {
 export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => (
   <Collapse in={!!account}>
     <Box marginBottom={3}>
-      <Row label="NAME" value={`${account?.firstName} ${account?.lastName}`} />
+      <Row label="NAME" value={`${account?.name}`} />
       <Row label="EMAIL" value={account?.email} />
       <Row label="PASSWORD" value={account?.password} />
     </Box>

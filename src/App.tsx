@@ -82,7 +82,7 @@ function App() {
 
               <AccountInfo account={account} />
 
-              <Collapse in={!!account}>
+              <Collapse in={account && account.name !== "ERROR"}>
                 <Box marginBottom={2}>
                   <Button
                     variant="contained"
