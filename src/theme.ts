@@ -27,10 +27,5 @@ export const theme = createMuiTheme({
         fontWeight: "bold",
       },
     },
-    MuiPaper: {
-      outlined: {
-        borderColor: COLORS.YELLOW,
-      },
-    },
   },
 });

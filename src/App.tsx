@@ -1,19 +1,20 @@
 import {
   Box,
   Button,
+  Collapse,
   CssBaseline,
   makeStyles,
-  Paper,
   ThemeProvider,
   Typography,
-  Collapse,
 } from "@material-ui/core";
+import copy from "copy-to-clipboard";
 import React, { useState } from "react";
 import { AccountInfo } from "./AccountInfo";
 import bgURL from "./bg.png";
+import { ContentBox } from "./ContentBox";
 import jake from "./jake.jpg";
+import { Notification } from "./Notification";
 import { COLORS, theme } from "./theme";
-import copy from "copy-to-clipboard";
 
 const useStyles = makeStyles({
   root: {
@@ -76,7 +77,7 @@ function App() {
             </Typography>
             <Typography>V2</Typography>
           </Box>
-          <Paper variant="outlined">
+          <ContentBox color="primary">
             <Box padding={3}>
               <Box marginBottom={2.5}>
                 <img src={jake} width="100%" alt="jake the burrito dog" />
@@ -104,11 +105,13 @@ function App() {
                 onClick={handleMakeClick}
               >
                 {fetching
-                  ? "WORKING..."
+                  ? "MAKING..."
                   : `MAKE ${account ? "ANOTHER" : "ACCOUNT"}`}
               </Button>
             </Box>
-          </Paper>
+          </ContentBox>
+
+          <Notification />
         </Box>
       </Box>
     </ThemeProvider>
