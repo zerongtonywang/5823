@@ -36,10 +36,8 @@ export const theme = createMuiTheme({
         width: "100%",
         borderRadius: defaultTheme.shape.borderRadius,
         height: "auto",
-        alignItems: "stretch",
       },
       label: {
-        overflow: "visible",
         whiteSpace: "normal",
         paddingTop: 8,
         paddingBottom: 8,
@@ -47,18 +45,19 @@ export const theme = createMuiTheme({
         alignItems: "center",
       },
       icon: {
+        display: "flex",
+        alignItems: "center",
         width: 40,
         padding: 8,
         margin: "0 !important",
-        height: "auto",
         alignSelf: "stretch",
         backgroundColor: defaultTheme.palette.divider,
       },
       deleteIcon: {
         marginLeft: "auto",
         height: "auto",
-        marginRight: 12
-      }
+        marginRight: 12,
+      },
     },
   },
 });

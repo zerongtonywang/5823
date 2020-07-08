@@ -19,7 +19,11 @@ export const Notification: React.FC = () => {
     <Box marginTop={3}>
       <Chip
         variant="outlined"
-        icon={<InfoIcon />}
+        icon={
+          <Box>
+            <InfoIcon />
+          </Box>
+        }
         deleteIcon={<DeleteIcon />}
         label={
           <Typography variant="caption">
