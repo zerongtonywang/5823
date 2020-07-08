@@ -30,16 +30,18 @@ function App() {
   const [copiedEmail, setCopiedEmail] = useState("");
 
   function handleMakeClick() {
-    setFetching(true);
-    fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld")
-      .then((res) => {
-        if (res.ok) {
-          res.json().then(setAccount);
-        }
-      })
-      .finally(() => {
-        setFetching(false);
-      });
+    if (!fetching) {
+      setFetching(true);
+      fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld")
+        .then((res) => {
+          if (res.ok) {
+            res.json().then(setAccount);
+          }
+        })
+        .finally(() => {
+          setFetching(false);
+        });
+    }
   }
 
   function handleCopyClick() {
