@@ -29,7 +29,6 @@ export const theme = createMuiTheme({
     },
     MuiPaper: {
       outlined: {
-        // backgroundColor: "transparent",
         borderColor: COLORS.YELLOW,
       },
     },
