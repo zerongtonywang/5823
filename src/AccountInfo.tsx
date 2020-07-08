@@ -1,22 +1,31 @@
-import { Box, Collapse, Typography } from "@material-ui/core";
-import React from "react";
+import { Box, Collapse, Typography, makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+
+const useRowStyles = makeStyles({
+  value: {
+    wordBreak: "break-all",
+  },
+});
 
 interface RowProps {
   label: string;
   value?: string;
 }
 
-const Row: React.FC<RowProps> = ({ label, value }) => (
-  <Box marginBottom={1} display="flex">
-    <Box marginRight={2}>
-      <Typography>{label}:</Typography>
-    </Box>
+const Row: React.FC<RowProps> = ({ label, value }) => {
+  const classes = useRowStyles();
+  return (
+    <Box marginBottom={1} display="flex">
+      <Box marginRight={2}>
+        <Typography>{label}:</Typography>
+      </Box>
 
-    <Typography component="span" color="primary">
-      {value}
-    </Typography>
-  </Box>
-);
+      <Typography className={classes.value} component="span" color="primary">
+        {value}
+      </Typography>
+    </Box>
+  );
+};
 
 interface AccountInfoProps {
   account?: Account;
