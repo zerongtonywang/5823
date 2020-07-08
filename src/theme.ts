@@ -55,7 +55,6 @@ export const theme = createMuiTheme({
       },
       deleteIcon: {
         marginLeft: "auto",
-        height: "auto",
         marginRight: 12,
       },
     },
