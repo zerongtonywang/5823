@@ -5,6 +5,8 @@ export const COLORS = {
   YELLOW: "#ffd204",
 };
 
+const defaultTheme = createMuiTheme({ palette: { type: "dark" } });
+
 export const theme = createMuiTheme({
   palette: {
     type: "dark",
@@ -26,6 +28,37 @@ export const theme = createMuiTheme({
       root: {
         fontWeight: "bold",
       },
+    },
+    MuiChip: {
+      outlined: {
+        justifyContent: "flex-start",
+        backgroundColor: COLORS.BLACK,
+        width: "100%",
+        borderRadius: defaultTheme.shape.borderRadius,
+        height: "auto",
+        alignItems: "stretch",
+      },
+      label: {
+        overflow: "visible",
+        whiteSpace: "normal",
+        paddingTop: 8,
+        paddingBottom: 8,
+        display: "flex",
+        alignItems: "center",
+      },
+      icon: {
+        width: 40,
+        padding: 8,
+        margin: "0 !important",
+        height: "auto",
+        alignSelf: "stretch",
+        backgroundColor: defaultTheme.palette.divider,
+      },
+      deleteIcon: {
+        marginLeft: "auto",
+        height: "auto",
+        marginRight: 12
+      }
     },
   },
 });
