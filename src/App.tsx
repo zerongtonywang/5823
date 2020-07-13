@@ -6,6 +6,7 @@ import {
   makeStyles,
   ThemeProvider,
   Typography,
+  ButtonGroup,
 } from "@material-ui/core";
 import copy from "copy-to-clipboard";
 import React, { useState } from "react";
@@ -15,6 +16,11 @@ import { ContentBox } from "./ContentBox";
 import jake from "./jake.jpg";
 import { Notification } from "./Notification";
 import { COLORS, theme } from "./theme";
+import SettingsIconOff from "@material-ui/icons/Settings";
+import SettingsIconOn from "@material-ui/icons/SettingsOutlined";
+import { Settings } from "./Settings";
+import useLocalStorage from "react-use-localstorage";
+import qs from "query-string";
 
 const useStyles = makeStyles({
   "@global": {
@@ -23,19 +29,28 @@ const useStyles = makeStyles({
       background: `url(${bgURL}) repeat`,
     },
   },
+  settingsButton: {
+    width: 48,
+  },
 });
 
 function App() {
-  useStyles();
+  const classes = useStyles();
 
   const [fetching, setFetching] = useState(false);
   const [account, setAccount] = useState<Account>();
   const [copiedEmail, setCopiedEmail] = useState("");
+  const [showSettings, setShowSettings] = useState(false);
 
   function handleMakeClick() {
     if (!fetching) {
       setFetching(true);
-      fetch(process.env.REACT_APP_BACKEND_URL + "/helloWorld")
+      fetch(
+        qs.stringifyUrl({
+          url: process.env.REACT_APP_BACKEND_URL + "/helloWorld",
+          query: { gender: localStorage.getItem("gender") },
+        })
+      )
         .then((res) => {
           if (res.ok) {
             res.json().then(setAccount);
@@ -95,16 +110,25 @@ function App() {
                 </Box>
               </Collapse>
 
-              <Button
-                variant={account ? "outlined" : "contained"}
+              <ButtonGroup
                 fullWidth
+                variant={account ? "outlined" : "contained"}
                 color="primary"
-                onClick={handleMakeClick}
               >
-                {fetching
-                  ? "MAKING..."
-                  : `MAKE ${account ? "ANOTHER" : "ACCOUNT"}`}
-              </Button>
+                <Button
+                  className={classes.settingsButton}
+                  onClick={() => setShowSettings(!showSettings)}
+                >
+                  {showSettings ? <SettingsIconOn /> : <SettingsIconOff />}
+                </Button>
+                <Button onClick={handleMakeClick}>
+                  {fetching
+                    ? "MAKING..."
+                    : `MAKE ${account ? "ANOTHER" : "ACCOUNT"}`}
+                </Button>
+              </ButtonGroup>
+
+              <Settings show={showSettings} />
             </Box>
           </ContentBox>
 
