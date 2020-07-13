@@ -1,26 +1,25 @@
 import {
   Box,
   Button,
+  ButtonGroup,
   Collapse,
   CssBaseline,
   makeStyles,
   ThemeProvider,
   Typography,
-  ButtonGroup,
 } from "@material-ui/core";
+import SettingsIconOff from "@material-ui/icons/Settings";
+import SettingsIconOn from "@material-ui/icons/SettingsOutlined";
 import copy from "copy-to-clipboard";
+import qs from "query-string";
 import React, { useState } from "react";
 import { AccountInfo } from "./AccountInfo";
 import bgURL from "./bg.png";
 import { ContentBox } from "./ContentBox";
 import jake from "./jake.jpg";
 import { Notification } from "./Notification";
-import { COLORS, theme } from "./theme";
-import SettingsIconOff from "@material-ui/icons/Settings";
-import SettingsIconOn from "@material-ui/icons/SettingsOutlined";
 import { Settings } from "./Settings";
-import useLocalStorage from "react-use-localstorage";
-import qs from "query-string";
+import { COLORS, theme } from "./theme";
 
 const useStyles = makeStyles({
   "@global": {
