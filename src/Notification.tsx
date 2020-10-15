@@ -1,37 +1,20 @@
-import { Box, Chip, Typography } from "@material-ui/core";
+import { Box, Chip, ChipProps, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Clear";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import React from "react";
-import useLocalStorage from "react-use-localstorage";
 
-export const Notification: React.FC = () => {
-  const [hideTip, setHideTip] = useLocalStorage("hideTip", "");
-
-  function handleDelete() {
-    setHideTip("true");
-  }
-
-  if (hideTip === "true") {
-    return null;
-  }
-
+export const Notification: React.FC<ChipProps> = ({ label, ...chipProps }) => {
   return (
-    <Box marginTop={3}>
-      <Chip
-        variant="outlined"
-        icon={
-          <Box>
-            <InfoIcon />
-          </Box>
-        }
-        deleteIcon={<DeleteIcon />}
-        label={
-          <Typography variant="caption">
-            Tip: You can "Add to Home Screen" for easy access.
-          </Typography>
-        }
-        onDelete={handleDelete}
-      />
-    </Box>
+    <Chip
+      variant="outlined"
+      icon={
+        <Box>
+          <InfoIcon />
+        </Box>
+      }
+      deleteIcon={<DeleteIcon />}
+      label={<Typography variant="caption">{label}</Typography>}
+      {...chipProps}
+    />
   );
 };

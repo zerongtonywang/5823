@@ -13,6 +13,7 @@ import SettingsIconOn from "@material-ui/icons/SettingsOutlined";
 import copy from "copy-to-clipboard";
 import qs from "query-string";
 import React, { useState } from "react";
+import useLocalStorage from "react-use-localstorage";
 import { AccountInfo } from "./AccountInfo";
 import bgURL from "./bg.png";
 import { ContentBox } from "./ContentBox";
@@ -40,6 +41,7 @@ function App() {
   const [account, setAccount] = useState<Account>();
   const [copiedEmail, setCopiedEmail] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const [hideTip, setHideTip] = useLocalStorage("hideTip", "");
 
   function handleMakeClick() {
     if (!fetching) {
@@ -88,6 +90,14 @@ function App() {
             </Typography>
             <Typography>V2</Typography>
           </Box>
+
+          <Box mb={3}>
+            <Notification
+              color="primary"
+              label="Due to rising traffic, this project will soon move to invite-only. Msg me for a password."
+            />
+          </Box>
+
           <ContentBox color="primary">
             <Box padding={3}>
               <Box marginBottom={2.5}>
@@ -131,7 +141,14 @@ function App() {
             </Box>
           </ContentBox>
 
-          <Notification />
+          {!hideTip && (
+            <Box mt={3}>
+              <Notification
+                label={`Tip: You can "Add to Home Screen" for easy access.`}
+                onDelete={() => setHideTip("true")}
+              />
+            </Box>
+          )}
         </Box>
       </Box>
     </ThemeProvider>
