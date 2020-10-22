@@ -49,7 +49,9 @@ function App() {
       fetch(
         qs.stringifyUrl({
           url: process.env.REACT_APP_BACKEND_URL + "/helloWorld",
-          query: { gender: localStorage.getItem("gender") },
+          query: {
+            gender: localStorage.getItem("gender"),
+          },
         })
       )
         .then((res) => {
@@ -94,7 +96,7 @@ function App() {
           <Box mb={3}>
             <Notification
               color="primary"
-              label="Due to rising traffic, this project will soon move to invite-only. Msg me for a password."
+              label="Due to rising traffic, this project will soon move to invite-only. Msg me for a refcode."
             />
           </Box>
 
