@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Collapse,
   CssBaseline,
   makeStyles,
@@ -21,6 +20,7 @@ import jake from "./jake.jpg";
 import { Notification } from "./Notification";
 import { Settings } from "./Settings";
 import { COLORS, theme } from "./theme";
+import { checkAccountError } from "./utils";
 
 const useStyles = makeStyles({
   "@global": {
@@ -30,7 +30,11 @@ const useStyles = makeStyles({
     },
   },
   settingsButton: {
-    width: 48,
+    marginRight: -8,
+    minWidth: 36,
+    "& .MuiButton-label": {
+      width: 24,
+    },
   },
 });
 
@@ -38,7 +42,7 @@ function App() {
   const classes = useStyles();
 
   const [fetching, setFetching] = useState(false);
-  const [account, setAccount] = useState<Account>();
+  const [account, setAccount] = useState<GAccount>();
   const [copiedEmail, setCopiedEmail] = useState("");
   const [hasValidRefcode, setHasValidRefcode] = useLocalStorage(
     "hasValidRefcode",
@@ -63,7 +67,10 @@ function App() {
           if (res.ok) {
             res.json().then((account) => {
               if (account.email && account.password) {
-                setHasValidRefcode("true");
+                setShowSettings(false);
+                setTimeout(() => {
+                  setHasValidRefcode("true");
+                }, 500);
               }
               setAccount(account);
             });
@@ -88,84 +95,86 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box display="flex" justifyContent="center">
-        <Box padding={3} maxWidth={600} width="100%">
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            marginRight={1}
-            marginBottom={3}
-          >
+      <Box padding={3} maxWidth={600} width="100%" mx="auto">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box position="relative">
             <Typography color="primary" variant="h5">
               BURRITO CITY
             </Typography>
-            <Typography>V2</Typography>
+
+            <Box position="absolute" top={-6} right={-25}>
+              <Typography variant="caption">V2</Typography>
+            </Box>
           </Box>
 
-          {!hasValidRefcode && (
-            <Box mb={3}>
-              <Notification
-                color="primary"
-                label="Due to rising traffic, this project is now invite-only. If you know me, msg me for a refcode."
-              />
-            </Box>
-          )}
-
-          <ContentBox color="primary">
-            <Box padding={3}>
-              <Box marginBottom={2.5}>
-                <img src={jake} width="100%" alt="jake the burrito dog" />
-              </Box>
-
-              <AccountInfo account={account} />
-
-              <Collapse in={account && account.name !== "ERROR"}>
-                <Box marginBottom={2}>
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    color="primary"
-                    onClick={handleCopyClick}
-                  >
-                    {copiedEmail ? `COPIED!` : "COPY EMAIL"}
-                  </Button>
-                </Box>
-              </Collapse>
-
-              <ButtonGroup
-                fullWidth
-                variant={account ? "outlined" : "contained"}
-                color="primary"
-              >
-                <Button
-                  className={classes.settingsButton}
-                  onClick={() => setShowSettings(!showSettings)}
-                >
-                  {showSettings ? <SettingsIconOn /> : <SettingsIconOff />}
-                </Button>
-                <Button onClick={handleMakeClick}>
-                  {fetching
-                    ? "MAKING..."
-                    : `MAKE ${account ? "ANOTHER" : "ACCOUNT"}`}
-                </Button>
-              </ButtonGroup>
-
-              <Collapse in={showSettings}>
-                <Settings />
-              </Collapse>
-            </Box>
-          </ContentBox>
-
-          {!hideTip && (
-            <Box mt={3}>
-              <Notification
-                label={`Tip: You can "Add to Home Screen" for easy access.`}
-                onDelete={() => setHideTip("true")}
-              />
-            </Box>
-          )}
+          <Button
+            className={classes.settingsButton}
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            {showSettings ? <SettingsIconOn /> : <SettingsIconOff />}
+          </Button>
         </Box>
+
+        <Collapse in={showSettings}>
+          <Box pt={3}>
+            {!hasValidRefcode && (
+              <Box mb={3}>
+                <Notification
+                  color="primary"
+                  label="Due to rising traffic, this project is now invite-only. If you know me, msg me for a refcode."
+                />
+              </Box>
+            )}
+            <Settings />
+          </Box>
+        </Collapse>
+
+        <Box height={24} />
+
+        <ContentBox color="primary">
+          <Box padding={3}>
+            <Box marginBottom={2.5}>
+              <img src={jake} width="100%" alt="jake the burrito dog" />
+            </Box>
+
+            <Collapse in={!!account}>
+              {account && <AccountInfo account={account} />}
+            </Collapse>
+
+            <Collapse in={account && !checkAccountError(account)}>
+              <Box marginBottom={2}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  onClick={handleCopyClick}
+                >
+                  {copiedEmail ? `COPIED!` : "COPY EMAIL"}
+                </Button>
+              </Box>
+            </Collapse>
+
+            <Button
+              fullWidth
+              variant={account ? "outlined" : "contained"}
+              color="primary"
+              onClick={handleMakeClick}
+            >
+              {fetching
+                ? "MAKING..."
+                : `MAKE ${account ? "ANOTHER" : "ACCOUNT"}`}
+            </Button>
+          </Box>
+        </ContentBox>
+
+        {!hideTip && (
+          <Box mt={3}>
+            <Notification
+              label={`Tip: You can "Add to Home Screen" for easy access.`}
+              onDelete={() => setHideTip("true")}
+            />
+          </Box>
+        )}
       </Box>
     </ThemeProvider>
   );

@@ -1,6 +1,6 @@
 /// <reference types="react-scripts" />
 
-interface Account {
+interface GAccount {
   name: string;
   email: string;
   password: string;

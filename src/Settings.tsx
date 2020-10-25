@@ -23,7 +23,7 @@ export const Settings: React.FC = () => {
   );
 
   return (
-    <Box mt={3}>
+    <Box>
       <Box>
         <TextField
           variant="outlined"
