@@ -125,9 +125,9 @@ function App() {
         </Box>
 
         <Collapse in={showSettings}>
-          <Box pt={3}>
+          <Box pt={3} pb={1}>
             {!hasValidRefcode && (
-              <Box mb={3}>
+              <Box mb={2}>
                 <Notification
                   color="primary"
                   label="Due to rising traffic, this project is now invite-only. If you know me, msg me for a refcode."

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  colors,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -27,7 +28,7 @@ export const Settings: React.FC = () => {
       <Box>
         <TextField
           variant="outlined"
-          label="REFCODE"
+          label={`${refcode ? "YOUR" : "ENTER"} REFCODE`}
           fullWidth
           size="small"
           value={refcode}
@@ -35,9 +36,9 @@ export const Settings: React.FC = () => {
         />
       </Box>
 
-      <Box display="flex" alignItems="center" mt={2}>
+      <Box display="flex" alignItems="center" mt={2} color={colors.grey[700]}>
         <Typography>GENDER: </Typography>
-        <Box flex={1} ml={2}>
+        <Box flex={1} ml={2.5}>
           <ButtonGroup fullWidth>
             {choiceButton("M")}
             {choiceButton("F")}

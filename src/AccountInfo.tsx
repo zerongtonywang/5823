@@ -23,7 +23,11 @@ interface RowProps {
 const Row: React.FC<RowProps> = ({ label, value, error }) => {
   const classes = useRowStyles();
   return (
-    <Box marginBottom={1} display="flex">
+    <Box
+      marginBottom={1}
+      display="flex"
+      justifyContent={error ? "center" : undefined}
+    >
       {label && (
         <Box marginRight={2}>
           <Typography>{label}:</Typography>
