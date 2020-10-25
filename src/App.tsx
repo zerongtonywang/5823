@@ -53,32 +53,41 @@ function App() {
 
   function handleMakeClick() {
     if (!fetching) {
-      setFetching(true);
-      fetch(
-        qs.stringifyUrl({
-          url: process.env.REACT_APP_BACKEND_URL + "/helloWorld",
-          query: {
-            gender: localStorage.getItem("gender"),
-            refcode: localStorage.getItem("refcode"),
-          },
-        })
-      )
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((account) => {
-              if (account.email && account.password) {
-                setShowSettings(false);
-                setTimeout(() => {
-                  setHasValidRefcode("true");
-                }, 500);
-              }
-              setAccount(account);
-            });
-          }
-        })
-        .finally(() => {
-          setFetching(false);
+      const refcode = localStorage.getItem("refcode");
+      if (refcode) {
+        setFetching(true);
+        fetch(
+          qs.stringifyUrl({
+            url: process.env.REACT_APP_BACKEND_URL + "/helloWorld",
+            query: {
+              gender: localStorage.getItem("gender"),
+              refcode,
+            },
+          })
+        )
+          .then((res) => {
+            if (res.ok) {
+              res.json().then((account) => {
+                if (account.email && account.password) {
+                  setShowSettings(false);
+                  setTimeout(() => {
+                    setHasValidRefcode("true");
+                  }, 500);
+                }
+                setAccount(account);
+              });
+            }
+          })
+          .finally(() => {
+            setFetching(false);
+          });
+      } else {
+        setAccount({
+          name: "INVALID REFCODE",
+          email: "",
+          password: "",
         });
+      }
     }
   }
 
@@ -159,6 +168,7 @@ function App() {
               variant={account ? "outlined" : "contained"}
               color="primary"
               onClick={handleMakeClick}
+              disabled={fetching}
             >
               {fetching
                 ? "MAKING..."
