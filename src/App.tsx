@@ -40,7 +40,11 @@ function App() {
   const [fetching, setFetching] = useState(false);
   const [account, setAccount] = useState<Account>();
   const [copiedEmail, setCopiedEmail] = useState("");
-  const [showSettings, setShowSettings] = useState(false);
+  const [hasValidRefcode, setHasValidRefcode] = useLocalStorage(
+    "hasValidRefcode",
+    ""
+  );
+  const [showSettings, setShowSettings] = useState(!hasValidRefcode);
   const [hideTip, setHideTip] = useLocalStorage("hideTip", "");
 
   function handleMakeClick() {
@@ -51,12 +55,18 @@ function App() {
           url: process.env.REACT_APP_BACKEND_URL + "/helloWorld",
           query: {
             gender: localStorage.getItem("gender"),
+            refcode: localStorage.getItem("refcode"),
           },
         })
       )
         .then((res) => {
           if (res.ok) {
-            res.json().then(setAccount);
+            res.json().then((account) => {
+              if (account.email && account.password) {
+                setHasValidRefcode("true");
+              }
+              setAccount(account);
+            });
           }
         })
         .finally(() => {
@@ -93,12 +103,14 @@ function App() {
             <Typography>V2</Typography>
           </Box>
 
-          <Box mb={3}>
-            <Notification
-              color="primary"
-              label="Due to rising traffic, this project will soon move to invite-only. Msg me for a refcode."
-            />
-          </Box>
+          {!hasValidRefcode && (
+            <Box mb={3}>
+              <Notification
+                color="primary"
+                label="Due to rising traffic, this project is now invite-only. If you know me, msg me for a refcode."
+              />
+            </Box>
+          )}
 
           <ContentBox color="primary">
             <Box padding={3}>
@@ -139,7 +151,9 @@ function App() {
                 </Button>
               </ButtonGroup>
 
-              <Settings show={showSettings} />
+              <Collapse in={showSettings}>
+                <Settings />
+              </Collapse>
             </Box>
           </ContentBox>
 
