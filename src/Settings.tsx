@@ -12,6 +12,7 @@ import useLocalStorage from "react-use-localstorage";
 export const Settings: React.FC = () => {
   const [gender, setGender] = useLocalStorage("gender", "?");
   const [refcode, setRefcode] = useLocalStorage("refcode", "");
+  const [hasValidRefcode] = useLocalStorage("hasValidRefcode", "");
 
   const choiceButton = (s: string): React.ReactNode => (
     <Button
@@ -36,16 +37,18 @@ export const Settings: React.FC = () => {
         />
       </Box>
 
-      <Box display="flex" alignItems="center" mt={2} color={colors.grey[700]}>
-        <Typography>GENDER: </Typography>
-        <Box flex={1} ml={2.5}>
-          <ButtonGroup fullWidth>
-            {choiceButton("M")}
-            {choiceButton("F")}
-            {choiceButton("?")}
-          </ButtonGroup>
+      {hasValidRefcode && (
+        <Box display="flex" alignItems="center" mt={2} color={colors.grey[700]}>
+          <Typography>NAME GENDER: </Typography>
+          <Box flex={1} ml={2.5}>
+            <ButtonGroup fullWidth>
+              {choiceButton("M")}
+              {choiceButton("F")}
+              {choiceButton("?")}
+            </ButtonGroup>
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 };
