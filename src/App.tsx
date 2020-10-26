@@ -43,6 +43,7 @@ function App() {
 
   const [fetching, setFetching] = useState(false);
   const [account, setAccount] = useState<GAccount>();
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState("");
   const [hasValidRefcode, setHasValidRefcode] = useLocalStorage(
     "hasValidRefcode",
@@ -143,7 +144,14 @@ function App() {
         <ContentBox color="primary">
           <Box padding={3}>
             <Box marginBottom={2.5}>
-              <img src={jake} width="100%" alt="jake the burrito dog" />
+              <Collapse in={imageLoaded}>
+                <img
+                  src={jake}
+                  width="100%"
+                  alt="jake the burrito dog"
+                  onLoad={() => setImageLoaded(true)}
+                />
+              </Collapse>
             </Box>
 
             <Collapse in={!!account}>
