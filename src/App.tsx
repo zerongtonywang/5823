@@ -54,7 +54,7 @@ function App() {
   function handleMakeClick() {
     if (!fetching) {
       const refcode = localStorage.getItem("refcode");
-      if (refcode) {
+      if (refcode && refcode !== "123") {
         setFetching(true);
         fetch(
           qs.stringifyUrl({
